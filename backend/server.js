@@ -2,24 +2,15 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const connectDB = require('./config/db')
+const setupRouting = require('./config/routing')
 const PORT = process.env.PORT || 3001
 
-const products = require('./data/products')
+// Middleware
+app.use(express.json())
 
 connectDB()
 
-app.get('/', (req, res) => {
-	res.send('API is running.')
-})
-
-app.get('/api/products', (req, res) => {
-	res.json(products)
-})
-
-app.get('/api/products/:id', (req, res) => {
-	const product = products.find((p) => p._id === req.params.id)
-	res.json(product)
-})
+setupRouting(app)
 
 app.listen(
 	PORT,
