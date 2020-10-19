@@ -7,8 +7,8 @@ import Rating from '../components/Rating'
 import Loading from '../components/Loading'
 import Message from '../components/Message'
 
-const ProductScreen = ({ match }) => {
-	const [qty, setQty] = useState(0)
+const Product = ({ history, match }) => {
+	const [qty, setQty] = useState(1)
 
 	const dispatch = useDispatch()
 	const productDetails = useSelector((state) => state.productDetails)
@@ -17,6 +17,10 @@ const ProductScreen = ({ match }) => {
 	useEffect(() => {
 		dispatch(listProductDetails(match.params.id))
 	}, [dispatch, match])
+
+	const addToCartHandler = () => {
+		history.push(`/cart/${match.params.id}?qty=${qty}`)
+	}
 
 	return (
 		<>
@@ -75,6 +79,7 @@ const ProductScreen = ({ match }) => {
 													as='select'
 													value={qty}
 													onChange={(e) => {
+														console.log(e.target.value)
 														setQty(e.target.value)
 													}}
 												>
@@ -90,6 +95,7 @@ const ProductScreen = ({ match }) => {
 								)}
 								<ListGroup.Item>
 									<Button
+										onClick={addToCartHandler}
 										className='btn-block'
 										type='button'
 										disabled={product.countInStock === 0}
@@ -106,4 +112,4 @@ const ProductScreen = ({ match }) => {
 	)
 }
 
-export default ProductScreen
+export default Product
