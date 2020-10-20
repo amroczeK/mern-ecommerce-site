@@ -6,9 +6,12 @@ import { listProductDetails } from '../redux/actions/products'
 import Rating from '../components/Rating'
 import Loading from '../components/Loading'
 import Message from '../components/Message'
+import ToastPopup from '../components/ToastPopup'
+import { addToCart } from '../redux/actions/cart'
 
 const Product = ({ history, match }) => {
 	const [qty, setQty] = useState(1)
+	const [showToast, setShowToast] = useState(false)
 
 	const dispatch = useDispatch()
 	const productDetails = useSelector((state) => state.productDetails)
@@ -19,7 +22,9 @@ const Product = ({ history, match }) => {
 	}, [dispatch, match])
 
 	const addToCartHandler = () => {
-		history.push(`/cart/${match.params.id}?qty=${qty}`)
+		//history.push(`/cart/${match.params.id}?qty=${qty}`)
+		dispatch(addToCart(match.params.id, qty))
+		setShowToast(true)
 	}
 
 	return (
@@ -102,6 +107,13 @@ const Product = ({ history, match }) => {
 									>
 										Add To Cart
 									</Button>
+									<ToastPopup
+										style={{ margin: '10px 0px 0px 0px' }}
+										showToast={showToast}
+										handleClose={() => setShowToast(false)}
+										title='Cart updated'
+										body='Item added to your cart.'
+									/>
 								</ListGroup.Item>
 							</ListGroup>
 						</Card>
