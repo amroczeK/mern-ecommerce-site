@@ -6,9 +6,9 @@ const controller = require('../../controllers/products')
 // @access  Public
 router.get('/', controller.getProducts)
 
-// @desc    Fetch single product
+// @desc    Fetch single product by id
 // @route   GET /api/products/:id
 // @access  Public
-router.get('/:id', controller.getProduct)
+router.get('/:id', controller.getProductById)
 
 module.exports = router

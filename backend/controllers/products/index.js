@@ -1,5 +1,8 @@
 const Product = require('../../models/productModel')
 
+// @desc    Fetch all products
+// @route   GET /api/products
+// @access  Public
 const getProducts = async (req, res) => {
 	try {
 		const products = await Product.find({})
@@ -9,7 +12,10 @@ const getProducts = async (req, res) => {
 	}
 }
 
-const getProduct = async (req, res) => {
+// @desc    Fetch single product by id
+// @route   GET /api/products/:id
+// @access  Public
+const getProductById = async (req, res) => {
 	try {
 		const product = await Product.findById(req.params.id)
 		if (product) {
@@ -24,5 +30,5 @@ const getProduct = async (req, res) => {
 
 module.exports = {
 	getProducts,
-	getProduct,
+	getProductById,
 }
