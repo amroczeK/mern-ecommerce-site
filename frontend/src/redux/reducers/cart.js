@@ -1,12 +1,8 @@
-import {
-	CART_ADD_ITEM,
-	CART_REMOVE_ITEM,
-	CART_UPDATE_ITEM,
-} from '../types/cart'
+import * as type from '../types/cart'
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
 	switch (action.type) {
-		case CART_ADD_ITEM:
+		case type.CART_ADD_ITEM:
 			const item = action.payload
 			const itemExists = state.cartItems.find((x) => x.product === item.product)
 			if (itemExists) {
@@ -22,12 +18,12 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
 					cartItems: [...state.cartItems, item],
 				}
 			}
-		case CART_REMOVE_ITEM:
+		case type.CART_REMOVE_ITEM:
 			return {
 				...state,
 				cartItems: state.cartItems.filter((x) => x.product !== action.payload),
 			}
-		case CART_UPDATE_ITEM:
+		case type.CART_UPDATE_ITEM:
 			return {
 				...state,
 				cartItems: state.cartItems.filter((x) => x.product !== action.payload),
