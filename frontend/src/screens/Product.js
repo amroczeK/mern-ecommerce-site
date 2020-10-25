@@ -84,7 +84,6 @@ const Product = ({ history, match }) => {
 													as='select'
 													value={qty}
 													onChange={(e) => {
-														console.log(e.target.value)
 														setQty(e.target.value)
 													}}
 												>

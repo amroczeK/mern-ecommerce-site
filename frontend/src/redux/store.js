@@ -3,13 +3,15 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { productListReducer, productDetailsReducer } from './reducers/products'
 import { cartReducer } from './reducers/cart'
-import { userLoginReducer } from './reducers/user'
+import { userLoginReducer, userRegisterReducer } from './reducers/user'
+import jwt from 'jsonwebtoken'
 
 const rootReducer = combineReducers({
 	productList: productListReducer,
 	productDetails: productDetailsReducer,
 	cart: cartReducer,
 	userLogin: userLoginReducer,
+	userRegister: userRegisterReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
@@ -24,6 +26,31 @@ const initialState = {
 	cart: { cartItems: cartItemsFromStorage },
 	userLogin: { userInfo: userInfoFromStorage },
 }
+
+// const checkJwtExpiry = (store) => (next) => (action) => {
+// 	const token = userInfoFromStorage && userInfoFromStorage['token']
+// 	if (window.location.href === 'http://localhost:3000/login') next(action)
+// 	else if (token) {
+// 		console.log('here', token)
+// 		jwt.verify(
+// 			token,
+// 			process.env.REACT_APP_JWT_SECRET,
+// 			async (err, decoded) => {
+// 				if (err) {
+// 					console.log(err)
+// 					localStorage.removeItem('userInfo')
+// 					alert('Your login session has expired, please re-login.')
+// 					window.location.href = 'http://localhost:3000/login'
+// 					next()
+// 				} else {
+// 					next(action)
+// 				}
+// 			}
+// 		)
+// 	} else {
+// 		window.location.href = 'http://localhost:3000/login'
+// 	}
+// }
 
 const middleware = [thunk]
 
