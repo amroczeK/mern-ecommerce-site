@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
 import Message from '../components/Message'
-import { addToCart, removeFromCart } from '../redux/actions/cart'
+import { addToCart, removeFromCart, updateItem } from '../redux/actions/cart'
 
 const Cart = ({ history }) => {
 	const dispatch = useDispatch()
@@ -45,7 +45,8 @@ const Cart = ({ history }) => {
 											value={item.qty}
 											onChange={(e) =>
 												dispatch(
-													addToCart(item.product, Number(e.target.value))
+													updateItem(item.product, Number(e.target.value))
+													//addToCart(item.product, Number(e.target.value))
 												)
 											}
 										>

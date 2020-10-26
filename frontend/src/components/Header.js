@@ -7,7 +7,8 @@ import { logout } from '../redux/actions/user'
 const Header = () => {
 	const dispatch = useDispatch()
 
-	const cartSize = useSelector((state) => state.cart.cartItems.length)
+	const cartItems = useSelector((state) => state.cart.cartItems)
+	const cartSize = cartItems.reduce((acc, item) => acc + item.qty, 0)
 	const userLogin = useSelector((state) => state.userLogin)
 	const { userInfo } = userLogin
 

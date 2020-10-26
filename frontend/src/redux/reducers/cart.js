@@ -2,9 +2,16 @@ import * as type from '../types/cart'
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
 	switch (action.type) {
-		case type.CART_ADD_ITEM:
+		case type.CART_ADD_ITEM: {
 			const item = action.payload
-			const itemExists = state.cartItems.find((x) => x.product === item.product)
+			const itemExists = state.cartItems.find((x) => {
+				if (x.product === item.product) {
+					item.qty = item.qty + x.qty
+					return true
+				} else {
+					return false
+				}
+			})
 			if (itemExists) {
 				return {
 					...state,
@@ -18,16 +25,33 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
 					cartItems: [...state.cartItems, item],
 				}
 			}
-		case type.CART_REMOVE_ITEM:
+		}
+		case type.CART_REMOVE_ITEM: {
 			return {
 				...state,
 				cartItems: state.cartItems.filter((x) => x.product !== action.payload),
 			}
-		case type.CART_UPDATE_ITEM:
+		}
+		case type.CART_UPDATE_ITEM: {
+			let updatedItem = {}
+			const item = action.payload
+			const itemExists = state.cartItems.find((x) => {
+				if (x.product === item.product) {
+					x.qty = item.qty
+					updatedItem = x
+					console.log(updatedItem)
+					return true
+				} else {
+					return false
+				}
+			})
 			return {
 				...state,
-				cartItems: state.cartItems.filter((x) => x.product !== action.payload),
+				cartItems: state.cartItems.map((x) =>
+					x.product === itemExists.product ? updatedItem : x
+				),
 			}
+		}
 		default:
 			return state
 	}
