@@ -39,7 +39,6 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
 				if (x.product === item.product) {
 					x.qty = item.qty
 					updatedItem = x
-					console.log(updatedItem)
 					return true
 				} else {
 					return false
