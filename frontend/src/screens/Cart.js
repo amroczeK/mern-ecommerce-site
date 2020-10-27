@@ -28,7 +28,7 @@ const Cart = ({ history }) => {
 						Your chart is empty. <Link to='/'>Go Back</Link>
 					</Message>
 				) : (
-					<ListGroup variant='flust'>
+					<ListGroup>
 						{cartItems.map((item) => (
 							<ListGroup.Item key={item.product}>
 								<Row>
@@ -72,7 +72,7 @@ const Cart = ({ history }) => {
 					</ListGroup>
 				)}
 			</Col>
-			<Col md={4}>
+			<Col md={4} style={{ paddingTop: '4.65rem' }}>
 				<Card>
 					<ListGroup variant='flush'>
 						<ListGroup.Item>

@@ -6,8 +6,10 @@ import Footer from './components/Footer'
 import Home from './screens/Home'
 import Product from './screens/Product'
 import Cart from './screens/Cart'
-import LoginScreen from './screens/LoginScreen'
-import RegisterScreen from './screens/RegisterScreen'
+import Login from './screens/Login'
+import Register from './screens/Register'
+import Profile from './screens/Profile'
+import Shipping from './screens/Shipping'
 
 const App = () => {
 	return (
@@ -16,8 +18,10 @@ const App = () => {
 			<main className='py-3'>
 				<Container>
 					<Switch>
-						<Route path='/login' component={LoginScreen} />
-						<Route path='/register' component={RegisterScreen} />
+						<Route path='/shipping' component={Shipping} />
+						<Route path='/login' component={Login} />
+						<Route path='/register' component={Register} />
+						<Route path='/profile' component={Profile} />
 						<Route path='/product/:id' component={Product} />
 						<Route path='/cart' component={Cart} />
 						<Route exact path='/' component={Home} />
