@@ -1,12 +1,21 @@
 require('dotenv').config()
 const express = require('express')
+const cors = require('cors')
 const app = express()
+const cookieParser = require('cookie-parser')
 const connectDB = require('./config/db')
 const setupRouting = require('./config/routing')
 const PORT = process.env.PORT || 3001
 
 // Middleware
 app.use(express.json())
+app.use(
+	cors({
+		origin: ['http://localhost:3001'],
+		credentials: true,
+	})
+)
+app.use(cookieParser())
 
 connectDB()
 

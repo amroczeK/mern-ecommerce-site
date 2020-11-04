@@ -9,12 +9,18 @@ const authUser = async (req, res) => {
 	try {
 		const user = await User.findOne({ email })
 		if (user && (await user.verifyPassword(password))) {
+			let token = generateToken(user._id);
+			res.cookie('token', token, {
+				maxAge: 7200000, // 2 hours
+				secure: false, // set to true if your using https
+				httpOnly: true
+			})
 			res.json({
 				_id: user._id,
 				name: user.name,
 				email: user.email,
 				isAdmin: user.isAdmin,
-				token: generateToken(user._id),
+				token: token,
 			})
 		} else {
 			res
