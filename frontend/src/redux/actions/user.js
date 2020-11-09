@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as type from '../types/user'
+import Cookies from 'universal-cookie'
 
 export const login = (email, password) => async (dispatch) => {
 	try {
@@ -37,6 +38,10 @@ export const login = (email, password) => async (dispatch) => {
 }
 
 export const logout = () => (dispatch) => {
+	const cookies = new Cookies()
+	cookies.remove('token', {
+		httpOnly: true,
+	})
 	localStorage.removeItem('userInfo')
 	dispatch({ type: type.USER_LOGOUT })
 }
@@ -82,6 +87,7 @@ export const register = (name, email, password) => async (dispatch) => {
 }
 
 export const getUserDetails = (id) => async (dispatch, getState) => {
+	console.log('--id', id)
 	try {
 		dispatch({
 			type: type.USER_DETAILS_REQUEST,
@@ -105,12 +111,16 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 			payload: data,
 		})
 	} catch (error) {
+		const message =
+			error.response && error.response.data.message
+				? error.response.data.message
+				: error.message
+		if (message === 'Not authorized, token failed') {
+			dispatch(logout())
+		}
 		dispatch({
 			type: type.USER_DETAILS_FAIL,
-			payload:
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.message,
+			payload: message,
 		})
 	}
 }

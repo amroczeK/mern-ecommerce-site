@@ -13,7 +13,18 @@ const protect = async (req, res, next) => {
 			req.user = await User.findById(decodedToken.id).select('-password')
 			next()
 		} catch (error) {
-      console.error(error)
+			console.error(error)
+			res.status(401).json({ success: false, message: error.toString() })
+		}
+	}
+	if (req.cookies && req.cookies.token) {
+		try {
+			token = req.cookies.token
+			const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
+			req.user = await User.findById(decodedToken.id).select('-password')
+			next()
+		} catch (error) {
+			console.error(error)
 			res.status(401).json({ success: false, message: error.toString() })
 		}
 	}

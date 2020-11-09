@@ -11,16 +11,22 @@ import Register from './screens/Register'
 import Profile from './screens/Profile'
 import Shipping from './screens/Shipping'
 import Payment from './screens/Payment'
+import PlaceOrder from './screens/PlaceOrder'
+import Order from './screens/Order'
+//import Private from './components/Private'
 
 const App = () => {
 	return (
+		//<Private>
 		<Router>
 			<Header />
 			<main className='py-3'>
 				<Container>
 					<Switch>
+						<Route path='/order/:id' component={Order} />
 						<Route path='/shipping' component={Shipping} />
 						<Route path='/payment' component={Payment} />
+						<Route path='/placeorder' component={PlaceOrder} />
 						<Route path='/login' component={Login} />
 						<Route path='/register' component={Register} />
 						<Route path='/profile' component={Profile} />
@@ -32,6 +38,7 @@ const App = () => {
 			</main>
 			<Footer />
 		</Router>
+		//</Private>
 	)
 }
 
