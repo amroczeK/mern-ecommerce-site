@@ -9,7 +9,11 @@ import {
 	userDetailsReducer,
 	userUpdateProfileReducer,
 } from './reducers/user'
-import { orderCreateReducer, orderDetailsReducer } from './reducers/orders'
+import {
+	orderCreateReducer,
+	orderDetailsReducer,
+	orderPayReducer,
+} from './reducers/orders'
 //import jwt from 'jsonwebtoken'
 
 const rootReducer = combineReducers({
@@ -22,6 +26,7 @@ const rootReducer = combineReducers({
 	userUpdateProfile: userUpdateProfileReducer,
 	orderCreate: orderCreateReducer,
 	orderDetails: orderDetailsReducer,
+	orderpay: orderPayReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

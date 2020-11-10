@@ -18,7 +18,7 @@ const Order = ({ match }) => {
 		if (!order || order._id !== orderId) {
 			dispatch(getOrderDetails(orderId))
 		}
-	}, [order, orderId])
+	}, [dispatch, order, orderId])
 
 	return loading ? (
 		<Loading />

@@ -93,7 +93,6 @@ export const register = (name, email, password) => async (dispatch) => {
 }
 
 export const getUserDetails = (id) => async (dispatch, getState) => {
-	console.log('--id', id)
 	try {
 		dispatch({
 			type: type.USER_DETAILS_REQUEST,
