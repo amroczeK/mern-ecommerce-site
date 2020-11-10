@@ -1,6 +1,5 @@
 import axios from 'axios'
 import * as type from '../types/user'
-import Cookies from 'universal-cookie'
 
 export const login = (email, password) => async (dispatch) => {
 	try {
@@ -15,7 +14,7 @@ export const login = (email, password) => async (dispatch) => {
 		}
 
 		const { data } = await axios.post(
-			'/api/users/login',
+			'/api/auth/login',
 			{ email, password },
 			config
 		)
@@ -37,13 +36,20 @@ export const login = (email, password) => async (dispatch) => {
 	}
 }
 
-export const logout = () => (dispatch) => {
-	const cookies = new Cookies()
-	cookies.remove('token', {
-		httpOnly: true,
-	})
-	localStorage.removeItem('userInfo')
-	dispatch({ type: type.USER_LOGOUT })
+export const logout = () => async (dispatch) => {
+	try {
+		await axios.get('/api/auth/logout')
+		localStorage.removeItem('userInfo')
+		dispatch({ type: type.USER_LOGOUT })
+	} catch (error) {
+		dispatch({
+			type: type.USER_LOGOUT_FAIL,
+			payload:
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message,
+		})
+	}
 }
 
 export const register = (name, email, password) => async (dispatch) => {

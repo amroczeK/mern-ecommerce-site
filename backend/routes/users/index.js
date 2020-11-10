@@ -4,8 +4,6 @@ const protect = require('../../middleware/authorization')
 
 router.post('/', controller.registerUser)
 
-router.post('/login', controller.authUser)
-
 router
 	.route('/profile')
 	.get(protect, controller.getUserProfile)

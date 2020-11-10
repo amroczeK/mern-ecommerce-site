@@ -1,37 +1,6 @@
 const User = require('../../models/userModel')
 const generateToken = require('../../utils/generateToken')
 
-// @desc    Auth user & get token
-// @route   POST /api/users/login
-// @access  Public
-const authUser = async (req, res) => {
-	const { email, password } = req.body
-	try {
-		const user = await User.findOne({ email })
-		if (user && (await user.verifyPassword(password))) {
-			let token = generateToken(user._id);
-			res.cookie('token', token, {
-				maxAge: 7200000, // 2 hours
-				secure: false, // set to true if your using https
-				httpOnly: true
-			})
-			res.json({
-				_id: user._id,
-				name: user.name,
-				email: user.email,
-				isAdmin: user.isAdmin,
-				token: token,
-			})
-		} else {
-			res
-				.status(401)
-				.json({ success: false, message: 'Invalid email or password' })
-		}
-	} catch (error) {
-		res.status(500).json({ success: false, message: error.toString() })
-	}
-}
-
 // @desc    Get user profile
 // @route   GET /api/users/profile
 // @access  Private
@@ -117,7 +86,6 @@ const registerUser = async (req, res) => {
 }
 
 module.exports = {
-	authUser,
 	registerUser,
 	getUserProfile,
 	updatetUserProfile,
