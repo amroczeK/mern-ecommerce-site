@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loading from '../components/Loading'
 import { getOrderDetails } from '../redux/actions/orders'
+import axios from 'axios'
 
 const Order = ({ match }) => {
 	const orderId = match.params.id
@@ -15,10 +16,15 @@ const Order = ({ match }) => {
 	const { order, loading, error } = orderDetails
 
 	useEffect(() => {
+		// const addPayPalScript = async () => {
+		// 	const { data: clientId } = await axios.get('/api/config/paypal')
+		// 	console.log(clientId)
+		// }
+		// addPayPalScript()
 		if (!order || order._id !== orderId) {
 			dispatch(getOrderDetails(orderId))
 		}
-	}, [dispatch, order, orderId])
+	}, [order, orderId])
 
 	return loading ? (
 		<Loading />

@@ -1,9 +1,15 @@
 const jwt = require('jsonwebtoken')
 
 const generateToken = (id) => {
-	return jwt.sign({ id }, process.env.JWT_SECRET, {
-		expiresIn: '2h', // 2 hours
+	return jwt.sign({ id }, process.env.JWT_TOKEN_SECRET, {
+		expiresIn: process.env.JWT_TOKEN_EXPIRY, // 5 minutes
 	})
 }
 
-module.exports = generateToken
+const generateRefreshToken = (id) => {
+	return jwt.sign({ id }, process.env.JWT_REFRESH_TOKEN_SECRET, {
+		expiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRY, // 24 hours
+	})
+}
+
+module.exports = { generateToken, generateRefreshToken }

@@ -1,5 +1,8 @@
 const User = require('../../models/userModel')
-const generateToken = require('../../utils/generateToken')
+const {
+	generateToken,
+	generateRefreshToken,
+} = require('../../utils/generateToken')
 
 // @desc    Get user profile
 // @route   GET /api/users/profile
@@ -43,6 +46,7 @@ const updatetUserProfile = async (req, res) => {
 				email: updatedUser.email,
 				isAdmin: updatedUser.isAdmin,
 				token: generateToken(updatedUser._id),
+				refreshToken: generateRefreshToken(updatedUser._id),
 			})
 		} else {
 			res.status(404).json({ success: false, message: 'User not found' })
@@ -76,6 +80,7 @@ const registerUser = async (req, res) => {
 				email: user.email,
 				isAdmin: user.isAdmin,
 				token: generateToken(user._id),
+				refreshToken: generateRefreshToken(updatedUser._id),
 			})
 		} else {
 			res.status(400).json({ success: false, message: 'Invalid user data' })

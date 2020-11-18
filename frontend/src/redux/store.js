@@ -14,7 +14,6 @@ import {
 	orderDetailsReducer,
 	orderPayReducer,
 } from './reducers/orders'
-//import jwt from 'jsonwebtoken'
 
 const rootReducer = combineReducers({
 	productList: productListReducer,
@@ -48,31 +47,6 @@ const initialState = {
 	},
 	userLogin: { userInfo: userInfoFromStorage },
 }
-
-// const checkJwtExpiry = (store) => (next) => (action) => {
-// 	const token = userInfoFromStorage && userInfoFromStorage['token']
-// 	if (window.location.href === 'http://localhost:3000/login') next(action)
-// 	else if (token) {
-// 		console.log('here', token)
-// 		jwt.verify(
-// 			token,
-// 			process.env.REACT_APP_JWT_SECRET,
-// 			async (err, decoded) => {
-// 				if (err) {
-// 					console.log(err)
-// 					localStorage.removeItem('userInfo')
-// 					alert('Your login session has expired, please re-login.')
-// 					window.location.href = 'http://localhost:3000/login'
-// 					next()
-// 				} else {
-// 					next(action)
-// 				}
-// 			}
-// 		)
-// 	} else {
-// 		window.location.href = 'http://localhost:3000/login'
-// 	}
-// }
 
 const middleware = [thunk]
 

@@ -13,11 +13,9 @@ import Shipping from './screens/Shipping'
 import Payment from './screens/Payment'
 import PlaceOrder from './screens/PlaceOrder'
 import Order from './screens/Order'
-//import Private from './components/Private'
 
 const App = () => {
 	return (
-		//<Private>
 		<Router>
 			<Header />
 			<main className='py-3'>
@@ -38,7 +36,6 @@ const App = () => {
 			</main>
 			<Footer />
 		</Router>
-		//</Private>
 	)
 }
 
