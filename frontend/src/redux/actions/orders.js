@@ -1,4 +1,5 @@
 import * as type from '../types/orders'
+import { logout } from '../actions/user'
 import axios from 'axios'
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -25,6 +26,8 @@ export const createOrder = (order) => async (dispatch, getState) => {
 			payload: data,
 		})
 	} catch (error) {
+		if (error.toString().match(/Request failed with status code 401/g))
+			dispatch(logout())
 		dispatch({
 			type: type.ORDER_CREATE_FAIL,
 			payload:
@@ -58,6 +61,8 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
 			payload: data,
 		})
 	} catch (error) {
+		if (error.toString().match(/Request failed with status code 401/g))
+			dispatch(logout())
 		dispatch({
 			type: type.ORDER_DETAILS_FAIL,
 			payload:
@@ -99,6 +104,8 @@ export const payOrder = (orderId, paymentResult) => async (
 			payload: data,
 		})
 	} catch (error) {
+		if (error.toString().match(/Request failed with status code 401/g))
+			dispatch(logout())
 		dispatch({
 			type: type.ORDER_PAY_FAIL,
 			payload:

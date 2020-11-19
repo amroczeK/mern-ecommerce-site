@@ -25,7 +25,7 @@ const protect = async (req, res, next) => {
 			else {
 				return res.status(401).json({
 					success: false,
-					message: 'Unauthorized, no token',
+					message: 'Unauthorized, please login',
 				})
 			}
 			if (token) {
@@ -51,7 +51,7 @@ const protect = async (req, res, next) => {
 				})
 				next()
 			} else {
-				throw new Error('Unauthorized, no token or refresh token')
+				throw new Error('Unauthorized, please login')
 			}
 		} catch (error) {
 			console.error(error)

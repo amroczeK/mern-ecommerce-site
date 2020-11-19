@@ -1,6 +1,6 @@
 import * as type from '../types/orders'
 
-export const orderCreateReducer = (state = {}, action) => {
+export const orderCreateReducer = (state = { success: false }, action) => {
 	switch (action.type) {
 		case type.ORDER_CREATE_REQUEST:
 			return {
@@ -15,6 +15,7 @@ export const orderCreateReducer = (state = {}, action) => {
 		case type.ORDER_CREATE_FAIL:
 			return {
 				loading: false,
+				success: false,
 				error: action.payload,
 			}
 		default:
