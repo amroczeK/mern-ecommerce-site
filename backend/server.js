@@ -2,13 +2,18 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const app = express()
+const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const connectDB = require('./config/db')
 const setupRouting = require('./config/routing')
 const PORT = process.env.PORT || 3001
 
 // Middleware
-app.use(express.json())
+
+// Parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// Parse application/json
+app.use(bodyParser.json())
 app.use(
 	cors({
 		origin: ['http://localhost:3001'],
