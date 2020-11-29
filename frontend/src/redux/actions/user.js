@@ -98,18 +98,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 			type: type.USER_DETAILS_REQUEST,
 		})
 
-		const {
-			userLogin: { userInfo },
-		} = getState()
-
-		const config = {
-			headers: {
-				'Content-Type': 'application/json',
-				//Authorization: `Bearer ${userInfo.token}`,
-			},
-		}
-
-		const { data } = await axios.get(`/api/users/${id}`, config)
+		const { data } = await axios.get(`/api/users/${id}`)
 
 		dispatch({
 			type: type.USER_DETAILS_SUCCESS,
@@ -136,18 +125,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 			type: type.USER_UPDATE_PROFILE_REQUEST,
 		})
 
-		const {
-			userLogin: { userInfo },
-		} = getState()
-
-		const config = {
-			headers: {
-				'Content-Type': 'application/json',
-				//Authorization: `Bearer ${userInfo.token}`,
-			},
-		}
-
-		const { data } = await axios.put(`/api/users/profile`, user, config)
+		const { data } = await axios.put(`/api/users/profile`, user)
 
 		dispatch({
 			type: type.USER_UPDATE_PROFILE_SUCCESS,

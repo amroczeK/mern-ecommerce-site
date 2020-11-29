@@ -10,7 +10,7 @@ const setupRouting = (app) => {
 	app.use('/api/users', UserRoutes)
 	app.use('/api/orders', OrderRoutes)
 	app.use('/api/auth', AuthRoutes)
-	//app.use('/api/config', ConfigRoutes)
+	app.use('/api/config', ConfigRoutes)
 }
 
 module.exports = setupRouting
