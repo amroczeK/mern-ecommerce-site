@@ -87,6 +87,10 @@ export const orderListMyReducer = (state = { orders: [] }, action) => {
         loading: false,
         error: action.payload,
       };
+    case type.ORDER_LIST_MY_RESET:
+      return {
+        orders: []
+      }
     default:
       return state;
   }
