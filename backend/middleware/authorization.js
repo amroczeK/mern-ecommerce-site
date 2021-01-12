@@ -70,4 +70,12 @@ const protect = async (req, res, next) => {
   }
 };
 
-module.exports = protect;
+const isAdmin = (req, res, next) => {
+  if (req.user && req.user.isAdmin) {
+    next();
+  } else {
+    res.status(401).json({ success: false, message: 'Not authorized to make this request' });
+  }
+};
+
+module.exports = { protect, isAdmin };

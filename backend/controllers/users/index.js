@@ -25,6 +25,22 @@ const getUserProfile = async (req, res) => {
 	}
 }
 
+// @desc    Get all users
+// @route   GET /api/users
+// @access  Private/Admin
+const getUsers = async (req, res) => {
+	try {
+		const users = await User.find({})
+		if (users) {
+			res.json(users)
+		} else {
+			res.status(404).json({ success: false, message: 'No users returned' })
+		}
+	} catch (error) {
+		res.status(500).json({ success: false, message: error.toString() })
+	}
+}
+
 // @desc    Update user profile
 // @route   PUT /api/users/profile
 // @access  Private
@@ -91,7 +107,8 @@ const registerUser = async (req, res) => {
 }
 
 module.exports = {
-	registerUser,
-	getUserProfile,
-	updatetUserProfile,
-}
+  getUserProfile,
+  getUsers,
+  updatetUserProfile,
+  registerUser,
+};
