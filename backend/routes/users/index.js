@@ -12,4 +12,6 @@ router
   .get(protect, controller.getUserProfile)
   .put(protect, controller.updatetUserProfile);
 
+router.route('/:id').delete(protect, isAdmin, controller.deleteUser);
+
 module.exports = router;
