@@ -139,6 +139,34 @@ const getUserById = async (req, res) => {
   }
 };
 
+// @desc    Update user
+// @route   PUT /api/users/:id
+// @access  Private/Admin
+const updateUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      if (typeof req.body.isAdmin !== 'undefined') user.isAdmin = req.body.isAdmin;
+
+      const updatedUser = await user.save();
+
+      res.json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        isAdmin: updatedUser.isAdmin,
+      });
+    } else {
+      res.status(404).json({ success: false, message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.toString() });
+  }
+};
+
 module.exports = {
   getUserProfile,
   getUsers,
@@ -146,4 +174,5 @@ module.exports = {
   registerUser,
   deleteUser,
   getUserById,
+  updateUser,
 };

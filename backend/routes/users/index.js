@@ -15,6 +15,7 @@ router
 router
   .route('/:id')
   .delete(protect, isAdmin, controller.deleteUser)
-  .get(protect, isAdmin, controller.getUserById);
+  .get(protect, isAdmin, controller.getUserById)
+  .put(protect, isAdmin, controller.updateUser);
 
 module.exports = router;
