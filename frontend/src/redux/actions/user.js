@@ -43,6 +43,7 @@ export const logout = () => async (dispatch) => {
     localStorage.removeItem('userInfo');
     dispatch({ type: type.USER_LOGOUT });
     dispatch({ type: type.USER_DETAILS_RESET });
+    dispatch({ type: type.USER_LIST_RESET });
     dispatch({ type: ORDER_LIST_MY_RESET });
   } catch (error) {
     dispatch({
@@ -143,6 +144,29 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: type.USER_UPDATE_PROFILE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listUsers = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: type.USER_LIST_REQUEST,
+    });
+
+    const { data } = await axios.get(`/api/users`);
+
+    dispatch({
+      type: type.USER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: type.USER_LIST_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
