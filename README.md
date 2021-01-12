@@ -14,7 +14,10 @@ Create a .env file in then root and add the following
 NODE_ENV = development
 PORT = 3001
 MONGO_URI = your mongodb uri
-JWT_SECRET = 'abc123'
+JWT_ACCESS_TOKEN_SECRET = abc12345
+JWT_ACCESS_TOKEN_EXPIRY = 300000
+JWT_REFRESH_TOKEN_SECRET = ABC123456
+JWT_REFRESH_TOKEN_EXPIRY = 86400000
 PAYPAL_CLIENT_ID = your paypal client id
 ```
 
