@@ -96,7 +96,7 @@ const registerUser = async (req, res) => {
         email: user.email,
         isAdmin: user.isAdmin,
         token: generateToken(user._id),
-        refreshToken: generateRefreshToken(updatedUser._id),
+        refreshToken: generateRefreshToken(user._id),
       });
     } else {
       res.status(400).json({ success: false, message: 'Invalid user data' });

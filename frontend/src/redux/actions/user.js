@@ -96,7 +96,7 @@ export const register = (name, email, password) => async (dispatch) => {
   }
 };
 
-export const getUserDetails = (id) => async (dispatch, getState) => {
+export const getUserDetails = (id) => async (dispatch) => {
   try {
     dispatch({
       type: type.USER_DETAILS_REQUEST,
@@ -123,7 +123,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
   }
 };
 
-export const updateUserProfile = (user) => async (dispatch, getState) => {
+export const updateUserProfile = (user) => async (dispatch) => {
   try {
     dispatch({
       type: type.USER_UPDATE_PROFILE_REQUEST,
@@ -152,7 +152,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   }
 };
 
-export const listUsers = () => async (dispatch, getState) => {
+export const listUsers = () => async (dispatch) => {
   try {
     dispatch({
       type: type.USER_LIST_REQUEST,
@@ -167,6 +167,26 @@ export const listUsers = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: type.USER_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const deleteUser = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: type.USER_DELETE_REQUEST,
+    });
+
+    const { data } = await axios.delete(`/api/users/${id}`);
+
+    dispatch({ type: type.USER_DELETE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: type.USER_DELETE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
