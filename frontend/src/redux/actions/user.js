@@ -181,12 +181,40 @@ export const deleteUser = (id) => async (dispatch) => {
       type: type.USER_DELETE_REQUEST,
     });
 
-    const { data } = await axios.delete(`/api/users/${id}`);
+    await axios.delete(`/api/users/${id}`);
 
     dispatch({ type: type.USER_DELETE_SUCCESS });
   } catch (error) {
     dispatch({
       type: type.USER_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const updateUser = (user) => async (dispatch) => {
+  try {
+    dispatch({
+      type: type.USER_UPDATE_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const { data } = await axios.put(`/api/users/${user._id}`, user, config);
+
+    dispatch({ type: type.USER_UPDATE_SUCCESS });
+
+    dispatch({ type: type.USER_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: type.USER_UPDATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
