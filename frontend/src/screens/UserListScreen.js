@@ -26,7 +26,7 @@ const UserListScreen = ({ history }) => {
     }
   }, [dispatch, history, successUserDelete, userInfo]);
 
-  const deleteHandler = (id) => {
+  const deleteUserHandler = (id) => {
     if (window.confirm('Are you sure that you want to delete this user?'))
       dispatch(deleteUser(id));
   };
@@ -73,7 +73,7 @@ const UserListScreen = ({ history }) => {
                   <Button
                     variant='danger'
                     className='btn-sm'
-                    onClick={() => deleteHandler(user._id)}
+                    onClick={() => deleteUserHandler(user._id)}
                   >
                     <i className='fas fa-trash'></i>
                   </Button>
