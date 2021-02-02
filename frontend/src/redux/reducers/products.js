@@ -13,10 +13,7 @@ export const productListReducer = (state = { products: [] }, action) => {
   }
 };
 
-export const productDetailsReducer = (
-  state = { product: { reviews: [] } },
-  action
-) => {
+export const productDetailsReducer = (state = { product: { reviews: [] } }, action) => {
   switch (action.type) {
     case type.PRODUCT_DETAILS_REQUEST:
       return { loading: true, ...state };
@@ -52,6 +49,21 @@ export const productCreateReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case type.PRODUCT_CREATE_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const productUpdateReducer = (state = { product: {} }, action) => {
+  switch (action.type) {
+    case type.PRODUCT_UPDATE_REQUEST:
+      return { loading: true };
+    case type.PRODUCT_UPDATE_SUCCESS:
+      return { loading: false, success: true, product: action.payload };
+    case type.PRODUCT_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
+    case type.PRODUCT_UPDATE_RESET:
+      return { product: {} };
     default:
       return state;
   }
