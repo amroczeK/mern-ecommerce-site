@@ -75,6 +75,7 @@ export const updateProduct = (product) => async (dispatch) => {
     };
 
     const { data } = await axios.put(`/api/products/${product._id}`, product, config);
+    
     dispatch({
       type: type.PRODUCT_UPDATE_SUCCESS,
       payload: data,
