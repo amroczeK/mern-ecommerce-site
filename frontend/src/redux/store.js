@@ -6,7 +6,7 @@ import {
   productDetailsReducer,
   productDeleteReducer,
   productCreateReducer,
-  productUpdateReducer
+  productUpdateReducer,
 } from './reducers/products';
 import { cartReducer } from './reducers/cart';
 import {
@@ -23,6 +23,7 @@ import {
   orderDetailsReducer,
   orderPayReducer,
   orderListMyReducer,
+  orderListAllReducer,
 } from './reducers/orders';
 
 const rootReducer = combineReducers({
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
   orderListMy: orderListMyReducer,
+  orderListAll: orderListAllReducer,
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
@@ -45,13 +47,9 @@ const rootReducer = combineReducers({
   productUpdate: productUpdateReducer,
 });
 
-const cartItemsFromStorage = localStorage.getItem('cartItems')
-  ? JSON.parse(localStorage.getItem('cartItems'))
-  : [];
+const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
 
-const userInfoFromStorage = localStorage.getItem('userInfo')
-  ? JSON.parse(localStorage.getItem('userInfo'))
-  : null;
+const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
   ? JSON.parse(localStorage.getItem('shippingAddress'))
@@ -67,10 +65,6 @@ const initialState = {
 
 const middleware = [thunk];
 
-const store = createStore(
-  rootReducer,
-  initialState,
-  composeWithDevTools(applyMiddleware(...middleware))
-);
+const store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
 
 export default store;

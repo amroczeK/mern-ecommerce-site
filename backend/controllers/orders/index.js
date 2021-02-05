@@ -39,10 +39,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
 // @route   GET /api/orders/:id
 // @access  Private
 const getOrderbyId = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id).populate(
-    'user',
-    'name email'
-  );
+  const order = await Order.findById(req.params.id).populate('user', 'name email');
   if (!order) {
     res.status(400);
     throw new Error('Order not found');
@@ -93,9 +90,26 @@ const getMyOrders = async (req, res) => {
   }
 };
 
+// @desc    Get logged in user orders
+// @route   GET /api/orders
+// @access  Private/Admin
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({}).populate('user', 'id name');
+    if (orders) {
+      res.json(orders);
+    } else {
+      throw new Error('No orders found');
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.toString() });
+  }
+};
+
 module.exports = {
   addOrderItems,
   getOrderbyId,
   updateOrderToPaid,
   getMyOrders,
+  getAllOrders,
 };

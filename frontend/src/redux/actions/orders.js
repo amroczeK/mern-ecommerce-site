@@ -104,3 +104,24 @@ export const listMyOrders = () => async (dispatch) => {
     });
   }
 };
+
+export const getAllOrders = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: type.ORDER_LIST_ALL_REQUEST,
+    });
+
+    const { data } = await axios.get(`/api/orders/`);
+
+    dispatch({
+      type: type.ORDER_LIST_ALL_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    if (error.toString().match(/Request failed with status code 401/g)) dispatch(logout());
+    dispatch({
+      type: type.ORDER_LIST_ALL_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
