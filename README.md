@@ -6,7 +6,7 @@ Learned how to develop an eCommerce platform using the MERN stack & Redux by fol
 
 My backend, RESTful API's, authentication and authorization methods are vastly different and follows the same flows and configurations from my previous projects. During development I noticed authentication/authorization issues in the course and made pull requests to Brad's master branch to optimize code and fix potential errors/issues that others may run into during the course.
 
-![Alt text](./preview.png?raw=true 'Preview')
+![Alt text](./preview.PNG?raw=true 'Preview')
 
 ## Prerequisites
 - Populate .env files
