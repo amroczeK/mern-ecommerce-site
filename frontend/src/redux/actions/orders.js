@@ -80,6 +80,55 @@ export const payOrder = (orderId, paymentResult) => async (dispatch) => {
   }
 };
 
+export const payOrder = (orderId, paymentResult) => async (dispatch) => {
+  try {
+    dispatch({
+      type: type.ORDER_PAY_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        'Content-Type':'application/json'
+      }
+    }
+
+    const { data } = await axios.put(`/api/orders/${orderId}/pay`, paymentResult, config);
+
+    dispatch({
+      type: type.ORDER_PAY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    if (error.toString().match(/Request failed with status code 401/g)) dispatch(logout());
+    dispatch({
+      type: type.ORDER_PAY_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
+
+export const deliverOrder = (order) => async (dispatch) => {
+  try {
+    dispatch({
+      type: type.ORDER_DELIVERED_REQUEST,
+    });
+
+
+    const { data } = await axios.put(`/api/orders/${order._id}/delivered`, {});
+
+    dispatch({
+      type: type.ORDER_DELIVERED_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    if (error.toString().match(/Request failed with status code 401/g)) dispatch(logout());
+    dispatch({
+      type: type.ORDER_DELIVERED_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
+
 export const listMyOrders = () => async (dispatch) => {
   try {
     dispatch({

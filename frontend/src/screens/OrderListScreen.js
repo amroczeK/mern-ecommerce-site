@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Table, Button, Row, Col } from 'react-bootstrap';
+import { Table, Button, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loading from '../components/Loading';
@@ -46,6 +46,7 @@ const OrderListScreen = ({ history }) => {
                   <th>TOTAL</th>
                   <th>PAID</th>
                   <th>DELIVERED</th>
+                  <th/>
                 </tr>
               </thead>
               <tbody>
@@ -67,6 +68,13 @@ const OrderListScreen = ({ history }) => {
                       ) : (
                         <i className='fas fa-times' style={{ color: 'red' }}></i>
                       )}
+                    </td>
+                    <td>
+                      <LinkContainer to={`/order/${order._id}`}>
+                        <Button variant='light' className='btn-sm'>
+                          Details
+                        </Button>
+                      </LinkContainer>
                     </td>
                   </tr>
                 ))}

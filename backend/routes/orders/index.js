@@ -6,5 +6,6 @@ router.route('/').get(protect, isAdmin, controller.getAllOrders).post(protect, c
 router.route('/myorders').get(protect, controller.getMyOrders);
 router.route('/:id').get(protect, controller.getOrderbyId);
 router.route('/:id/pay').put(protect, controller.updateOrderToPaid);
+router.route('/:id/delivered').put(protect, isAdmin, controller.updateOrderToDelivered);
 
 module.exports = router;
